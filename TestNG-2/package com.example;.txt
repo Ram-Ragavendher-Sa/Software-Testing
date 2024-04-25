@@ -9,7 +9,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class AppTest 
 {
-    @Test
+    @BeforeTest
     public void shouldAnswerWithTrue() throws InterruptedException
     {
         WebDriverManager.edgedriver().setup();
@@ -19,6 +19,9 @@ public class AppTest
         //opening
         driver.get(path1);
         Thread.sleep(10000);
+    }
+    @Test(priority=0)
+    public void search(){
 
         // System.out.println("Search_Strt");
         driver.findElement(By.id("search_str")).sendKeys("Reliance Industries.",Keys.ENTER);
@@ -30,6 +33,9 @@ public class AppTest
         
         driver.navigate().to("https://www.moneycontrol.com/mf/sipcalculator.php");
         Thread.sleep(2000);
+    }
+    @Test(priority=1)
+    public void first(){
 
         // dropdown box ---1
         driver.findElement(By.xpath("//*[@id=\"ff_id\"]/option[3]")).click();
@@ -40,6 +46,9 @@ public class AppTest
 
         driver.findElement(By.name("invamt")).sendKeys("100000");
         Thread.sleep(2000);
+    }
+    @Test([priority=2)
+    public void second(){
 
          //strt date
          driver.findElement(By.id("stdt")).sendKeys("2021-08-02");
@@ -54,7 +63,11 @@ public class AppTest
          
          System.out.println(dt);
          System.out.println(amt);
-         // driver.quit();
+    }
+       @AfterTest
+    public void quitDriver() {
+        driver.quit();
+    }
 
     }
 }
