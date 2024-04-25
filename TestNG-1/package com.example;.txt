@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 public class AppTest 
 {
-   @Test
+   @BeforeTest
    public void map() throws InterruptedException
    {
        WebDriver driver=new ChromeDriver();
@@ -19,6 +19,9 @@ public class AppTest
        driver.manage().window().maximize();
 
        Thread.sleep(3000);
+}
+   @Test(priority=0)
+   public void search(){
        driver.findElement(By.xpath("/html/body/main/div[4]/nav/div[10]/a")).click();
    
         WebElement selectElement = driver.findElement(By.id("amcSelection"));
@@ -30,6 +33,8 @@ public class AppTest
         select.selectByVisibleText("Canara Robeco");
    
         WebElement selectElement2 = driver.findElement(By.id("schemenm"));
+   }
+   @Test(priority=1){
 
         // Wrap the select element in a Select object
         Select select2 = new Select(selectElement2);
@@ -38,6 +43,8 @@ public class AppTest
         select2.selectByVisibleText("Canara Robeco Bluechip Equity Direct-G");
       
        driver.findElement(By.xpath("//*[@id=\"getDetails\"]")).click();
+   }
+   @Test(priority=2){
 
       driver.findElement(By.xpath("/html/body/main/div[10]/section[1]/div/div[2]/div[1]/div[2]/ul/li/span")).click();
       driver.findElement(By.xpath("/html/body/main/div[10]/section[1]/div/div[2]/div[1]/div[2]/ul/li/ul/li[1]")).click();
@@ -49,8 +56,11 @@ public class AppTest
       driver.findElement(By.xpath("/html/body/main/div[10]/section[1]/div/div[2]/div[1]/div[4]/ul/li/ul/li[4]")).click();
 
       driver.findElement(By.xpath("/html/body/main/div[10]/section[3]/div/ul/li[2]")).click();
-
-      driver.quit();
+   }
+@AfterTest
+    public void quitDriver() {
+        driver.quit();
+    }
 
    }
 }
